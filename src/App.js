@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function App() {
   const [menuState, setMenuState] = useState(false);
-  const [days, setDays] = useState([
+  const possibleDays = [
     "monday",
     "tuesday",
     "wednesday",
@@ -14,8 +14,9 @@ function App() {
     "friday",
     "saturday",
     "sunday",
-  ]);
-  const [hours, setHours] = useState([
+  ];
+  const [days, setDays] = useState([...possibleDays]);
+  const possibleHours = [
     "5pm",
     "6pm",
     "7pm",
@@ -29,11 +30,29 @@ function App() {
     "3am",
     "4am",
     "5am",
-  ]);
-
+  ];
+  const [hours, setHours] = useState([...possibleHours]);
   const toggleMenu = () => {
     setMenuState(!menuState);
   };
+
+  const updateHours = (startHour, endHour) => {
+    const newHours = possibleHours.slice(startHour, endHour + 1);
+    setHours(newHours);
+  };
+
+  const sortDays = (days) => {
+    const sortedArray = days.sort(
+      (a, b) => possibleDays.indexOf(a) - possibleDays.indexOf(b)
+    );
+    return sortedArray;
+  };
+
+  const updateDays = (newDays) => {
+    const sortedDays = sortDays(newDays);
+    setDays(sortedDays);
+  };
+
   return (
     <div
       className="App"
@@ -45,7 +64,14 @@ function App() {
     >
       <Header />
       <Main days={days} hours={hours} />
-      <Menu menuState={menuState} toggleMenu={toggleMenu} />
+      <Menu
+        menuState={menuState}
+        toggleMenu={toggleMenu}
+        days={days}
+        updateDays={updateDays}
+        hours={hours}
+        updateHours={updateHours}
+      />
     </div>
   );
 }

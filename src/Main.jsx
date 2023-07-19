@@ -2,7 +2,10 @@ import Hours from "./Hours";
 
 function Main({ days, hours }) {
   return (
-    <main className="Main">
+    <main
+      className="Main"
+      style={{ gridTemplateColumns: `100px repeat(${days.length}, 1fr)` }}
+    >
       <div className="HoursHeader"></div>
       {days.map((e) => (
         <div className="Days">
