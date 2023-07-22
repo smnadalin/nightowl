@@ -32,6 +32,18 @@ function App() {
     "5am",
   ];
   const [hours, setHours] = useState([...possibleHours]);
+  const [tasks, setTasks] = useState([...Array(7)].map((e) => Array(13)));
+
+  const updateTasks = (action, data) => {
+    const updatedTasks = [...tasks];
+    if (action === "add") {
+      updatedTasks[data.day][data.hour] = data;
+    } else if (action === "delete") {
+      updatedTasks[data.day][data.hour] = null;
+    }
+    setTasks(updatedTasks);
+  };
+
   const toggleMenu = () => {
     setMenuState(!menuState);
   };
@@ -63,7 +75,7 @@ function App() {
       }
     >
       <Header />
-      <Main days={days} hours={hours} />
+      <Main days={days} hours={hours} tasks={tasks} updateTasks={updateTasks} />
       <Menu
         menuState={menuState}
         toggleMenu={toggleMenu}
