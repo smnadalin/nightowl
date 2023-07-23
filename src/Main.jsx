@@ -1,4 +1,22 @@
-function Main({ hours, includeWeekend, tasks, updateTasks }) {
+import Item from "./Item";
+
+function Main({ includeWeekend, tasks, updateTasks, startHour, endHour }) {
+  const dropdownHours = [
+    "5pm",
+    "6pm",
+    "7pm",
+    "8pm",
+    "9pm",
+    "10pm",
+    "11pm",
+    "12am",
+    "1am",
+    "2am",
+    "3am",
+    "4am",
+    "5am",
+  ];
+
   const days = [
     "monday",
     "tuesday",
@@ -13,7 +31,7 @@ function Main({ hours, includeWeekend, tasks, updateTasks }) {
       className="Main"
       style={{
         gridTemplateColumns: `100px repeat(${includeWeekend ? 7 : 5}, 1fr)`,
-        gridTemplateRows: `100px repeat(${hours.length}, 1fr)`,
+        gridTemplateRows: `100px repeat(${endHour - startHour + 1}, 1fr)`,
       }}
     >
       <div className="HoursHeader"></div>
@@ -28,14 +46,38 @@ function Main({ hours, includeWeekend, tasks, updateTasks }) {
           return null;
         }
       })}
-      {hours.map((e, index) => (
-        <div
-          className="Hour"
-          style={{ gridColumn: 1, gridRow: `${1 + hours[index]}` }}
-        >
-          <p>{e}</p>
-        </div>
-      ))}
+      {dropdownHours.map((e, index) => {
+        if (index >= startHour && index <= endHour) {
+          return (
+            <div
+              key={e}
+              className="Hour"
+              style={{ gridColumn: 1, gridRow: `${index - startHour + 2}` }}
+            >
+              <p>{e}</p>
+            </div>
+          );
+        }
+      })}
+      {tasks.map((day, dayIndex) =>
+        day.map((hour, hourIndex) => {
+          if (includeWeekend || dayIndex < 5) {
+            if (hourIndex >= startHour && hourIndex <= endHour) {
+              return (
+                <Item
+                  key={`${dayIndex}-${hourIndex}`}
+                  day={dayIndex}
+                  hour={hourIndex}
+                  startHour={startHour}
+                  endHour={endHour}
+                />
+              );
+            }
+          } else {
+            return null;
+          }
+        })
+      )}
     </main>
   );
 }

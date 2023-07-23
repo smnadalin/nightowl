@@ -18,23 +18,22 @@ function App() {
 
   const [includeWeekend, setIncludeWeekend] = useState(true);
 
-  const possibleHours = [
-    "5pm",
-    "6pm",
-    "7pm",
-    "8pm",
-    "9pm",
-    "10pm",
-    "11pm",
-    "12am",
-    "1am",
-    "2am",
-    "3am",
-    "4am",
-    "5am",
-  ];
-  const [hours, setHours] = useState([...possibleHours]);
-  const [tasks, setTasks] = useState([...Array(7)].map((e) => Array(13)));
+  const GenerateTasksArray = () => {
+    const outerArray = Array(7);
+    for (let i = 0; i < 7; i++) {
+      const innerArray = Array(13);
+      for (let j = 0; j < 13; j++) {
+        innerArray[j] = null;
+      }
+      outerArray[i] = innerArray;
+    }
+    return outerArray;
+  };
+
+  const [tasks, setTasks] = useState(GenerateTasksArray());
+
+  const [startHour, setStartHour] = useState(0);
+  const [endHour, setEndHour] = useState(12);
 
   const updateTasks = (action, data) => {
     const updatedTasks = [...tasks];
@@ -55,8 +54,8 @@ function App() {
   };
 
   const updateHours = (startHour, endHour) => {
-    const newHours = possibleHours.slice(startHour, endHour + 1);
-    setHours(newHours);
+    setStartHour(startHour);
+    setEndHour(endHour);
   };
 
   return (
@@ -70,18 +69,20 @@ function App() {
     >
       <Header />
       <Main
-        hours={hours}
         includeWeekend={includeWeekend}
         tasks={tasks}
         updateTasks={updateTasks}
+        startHour={startHour}
+        endHour={endHour}
       />
       <Menu
         menuState={menuState}
         toggleMenu={toggleMenu}
         includeWeekend={includeWeekend}
         toggleWeekend={toggleWeekend}
-        hours={hours}
         updateHours={updateHours}
+        startHour={startHour}
+        endHour={endHour}
       />
     </div>
   );

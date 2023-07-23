@@ -4,21 +4,12 @@ import { useState } from "react";
 function Menu({
   menuState,
   toggleMenu,
-  days,
   includeWeekend,
   toggleWeekend,
-  hours,
   updateHours,
+  startHour,
+  endHour,
 }) {
-  // const selectableDays = [
-  //   "monday",
-  //   "tuesday",
-  //   "wednesday",
-  //   "thursday",
-  //   "friday",
-  //   "saturday",
-  //   "sunday",
-  // ];
   const dropdownHours = [
     "5pm",
     "6pm",
@@ -43,9 +34,9 @@ function Menu({
     return indexOfHour;
   };
 
-  const handleStartHourChange = (startHour, hours) => {
+  const handleStartHourChange = (startHour) => {
     const startHourIndex = findIndexOfHour(startHour);
-    const endHourIndex = findIndexOfHour(hours[hours.length - 1]);
+    const endHourIndex = endHour;
     if (startHourIndex > endHourIndex) {
       setStartHourValid(false);
     } else {
@@ -54,8 +45,8 @@ function Menu({
     }
   };
 
-  const handleEndHourChange = (endHour, hours) => {
-    const startHourIndex = findIndexOfHour(hours[0]);
+  const handleEndHourChange = (endHour) => {
+    const startHourIndex = startHour;
     const endHourIndex = findIndexOfHour(endHour);
     if (endHourIndex < startHourIndex) {
       setEndHourValid(false);
@@ -64,17 +55,6 @@ function Menu({
       updateHours(startHourIndex, endHourIndex);
     }
   };
-
-  // const handleDayChange = (event) => {
-  //   const checked = event.target.checked;
-  //   const id = event.target.id;
-  //   if (checked) {
-  //     updateDays([...days, id]);
-  //   } else {
-  //     const index = days.indexOf(id);
-  //     updateDays(days.toSpliced(index, 1));
-  //   }
-  // };
 
   return (
     <nav className="Menu">
@@ -98,8 +78,8 @@ function Menu({
             <select
               name="StartTime"
               id="StartTime"
-              value={hours[0]}
-              onChange={(e) => handleStartHourChange(e.target.value, hours)}
+              value={dropdownHours[startHour]}
+              onChange={(e) => handleStartHourChange(e.target.value)}
             >
               {dropdownHours.map((e) => (
                 <option value={e}>{e}</option>
@@ -111,8 +91,8 @@ function Menu({
             <select
               name="EndTime"
               id="EndTime"
-              value={hours[hours.length - 1]}
-              onChange={(e) => handleEndHourChange(e.target.value, hours)}
+              value={dropdownHours[endHour]}
+              onChange={(e) => handleEndHourChange(e.target.value)}
             >
               {dropdownHours.map((e) => (
                 <option value={e}>{e}</option>
