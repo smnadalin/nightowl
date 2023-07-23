@@ -1,16 +1,24 @@
 import MenuButton from "./MenuButton";
 import { useState } from "react";
 
-function Menu({ menuState, toggleMenu, days, updateDays, hours, updateHours }) {
-  const selectableDays = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
-  ];
+function Menu({
+  menuState,
+  toggleMenu,
+  days,
+  includeWeekend,
+  toggleWeekend,
+  hours,
+  updateHours,
+}) {
+  // const selectableDays = [
+  //   "monday",
+  //   "tuesday",
+  //   "wednesday",
+  //   "thursday",
+  //   "friday",
+  //   "saturday",
+  //   "sunday",
+  // ];
   const dropdownHours = [
     "5pm",
     "6pm",
@@ -45,6 +53,7 @@ function Menu({ menuState, toggleMenu, days, updateDays, hours, updateHours }) {
       updateHours(startHourIndex, endHourIndex);
     }
   };
+
   const handleEndHourChange = (endHour, hours) => {
     const startHourIndex = findIndexOfHour(hours[0]);
     const endHourIndex = findIndexOfHour(endHour);
@@ -56,16 +65,16 @@ function Menu({ menuState, toggleMenu, days, updateDays, hours, updateHours }) {
     }
   };
 
-  const handleDayChange = (event) => {
-    const checked = event.target.checked;
-    const id = event.target.id;
-    if (checked) {
-      updateDays([...days, id]);
-    } else {
-      const index = days.indexOf(id);
-      updateDays(days.toSpliced(index, 1));
-    }
-  };
+  // const handleDayChange = (event) => {
+  //   const checked = event.target.checked;
+  //   const id = event.target.id;
+  //   if (checked) {
+  //     updateDays([...days, id]);
+  //   } else {
+  //     const index = days.indexOf(id);
+  //     updateDays(days.toSpliced(index, 1));
+  //   }
+  // };
 
   return (
     <nav className="Menu">
@@ -73,19 +82,16 @@ function Menu({ menuState, toggleMenu, days, updateDays, hours, updateHours }) {
       {menuState ? (
         <div>
           <h1>Settings:</h1>
-          <h2>Days:</h2>
-          {selectableDays.map((e) => (
-            <div>
-              <input
-                type="checkbox"
-                id={e}
-                name={e}
-                checked={days.includes(e)}
-                onChange={handleDayChange}
-              />
-              <label for={e}>{e}</label>
-            </div>
-          ))}
+          <div>
+            <input
+              type="checkbox"
+              id="Weekend"
+              name="Weekend"
+              checked={includeWeekend}
+              onChange={toggleWeekend}
+            />
+            <label for="Weekend">Include weekend</label>
+          </div>
           <h1>Time:</h1>
           <div>
             <label for="StartTime">Start Time:</label>

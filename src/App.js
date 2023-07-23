@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function App() {
   const [menuState, setMenuState] = useState(false);
-  const possibleDays = [
+  const days = [
     "monday",
     "tuesday",
     "wednesday",
@@ -15,7 +15,9 @@ function App() {
     "saturday",
     "sunday",
   ];
-  const [days, setDays] = useState([...possibleDays]);
+
+  const [includeWeekend, setIncludeWeekend] = useState(true);
+
   const possibleHours = [
     "5pm",
     "6pm",
@@ -48,21 +50,13 @@ function App() {
     setMenuState(!menuState);
   };
 
+  const toggleWeekend = () => {
+    setIncludeWeekend(!includeWeekend);
+  };
+
   const updateHours = (startHour, endHour) => {
     const newHours = possibleHours.slice(startHour, endHour + 1);
     setHours(newHours);
-  };
-
-  const sortDays = (days) => {
-    const sortedArray = days.sort(
-      (a, b) => possibleDays.indexOf(a) - possibleDays.indexOf(b)
-    );
-    return sortedArray;
-  };
-
-  const updateDays = (newDays) => {
-    const sortedDays = sortDays(newDays);
-    setDays(sortedDays);
   };
 
   return (
@@ -75,12 +69,17 @@ function App() {
       }
     >
       <Header />
-      <Main days={days} hours={hours} tasks={tasks} updateTasks={updateTasks} />
+      <Main
+        hours={hours}
+        includeWeekend={includeWeekend}
+        tasks={tasks}
+        updateTasks={updateTasks}
+      />
       <Menu
         menuState={menuState}
         toggleMenu={toggleMenu}
-        days={days}
-        updateDays={updateDays}
+        includeWeekend={includeWeekend}
+        toggleWeekend={toggleWeekend}
         hours={hours}
         updateHours={updateHours}
       />
