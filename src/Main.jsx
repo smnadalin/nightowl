@@ -1,6 +1,13 @@
 import Item from "./Item";
 
-function Main({ includeWeekend, tasks, updateTasks, startHour, endHour }) {
+function Main({
+  includeWeekend,
+  tasks,
+  updateTasks,
+  startHour,
+  endHour,
+  handleClickTask,
+}) {
   const dropdownHours = [
     "5pm",
     "6pm",
@@ -70,6 +77,7 @@ function Main({ includeWeekend, tasks, updateTasks, startHour, endHour }) {
                   hour={hourIndex}
                   startHour={startHour}
                   endHour={endHour}
+                  handleClickTask={handleClickTask}
                 />
               );
             }

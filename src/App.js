@@ -31,9 +31,9 @@ function App() {
   };
 
   const [tasks, setTasks] = useState(GenerateTasksArray());
-
   const [startHour, setStartHour] = useState(0);
   const [endHour, setEndHour] = useState(12);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const updateTasks = (action, data) => {
     const updatedTasks = [...tasks];
@@ -58,6 +58,10 @@ function App() {
     setEndHour(endHour);
   };
 
+  const handleClickTask = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div
       className="App"
@@ -74,6 +78,7 @@ function App() {
         updateTasks={updateTasks}
         startHour={startHour}
         endHour={endHour}
+        handleClickTask={handleClickTask}
       />
       <Menu
         menuState={menuState}
@@ -84,6 +89,14 @@ function App() {
         startHour={startHour}
         endHour={endHour}
       />
+      {modalOpen ? (
+        <div className="Modal">
+          <div className="ModalContent">
+            <span className="Close">&times;</span>
+            <form></form>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
