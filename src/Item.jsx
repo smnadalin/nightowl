@@ -9,9 +9,10 @@ function Item({ key, day, hour, startHour, handleClickTask, task }) {
       style={{
         gridRow: `${2 + hour - startHour}`,
         gridColumn: `${2 + day}`,
+        backgroundColor: task.colour === null ? `#252525` : task.colourHex,
       }}
     >
-      {task.taskName === null ? null : <h1>Hello</h1>}
+      {task.taskName === null ? null : <p>{task.taskName}</p>}
     </div>
   );
 }

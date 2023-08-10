@@ -7,8 +7,9 @@ import { useState } from "react";
 
 function App() {
   const [menuState, setMenuState] = useState(false);
-
   const [includeWeekend, setIncludeWeekend] = useState(true);
+
+  const colours = { Red: "#4a2735", Green: "#344a4d" };
 
   const GenerateTasksArray = () => {
     const outerArray = Array(7);
@@ -19,6 +20,7 @@ function App() {
           taskName: null,
           taskDescription: null,
           colour: null,
+          colourHex: null,
         };
       }
       outerArray[i] = innerArray;
@@ -34,6 +36,7 @@ function App() {
     taskName: "",
     taskDescription: "",
     colour: "",
+    colourHex: "",
     day: "",
     hour: "",
   });
@@ -45,6 +48,7 @@ function App() {
         taskName: modalData.taskName,
         taskDescription: modalData.taskDescription,
         colour: modalData.colour,
+        colourHex: modalData.colourHex,
       };
     } else if (action === "delete") {
       updatedTasks[modalData.day][modalData.hour] = {
@@ -72,12 +76,19 @@ function App() {
   const handleClickTask = (event) => {
     const item = event.target;
     const itemDay = item.getAttribute("day");
-
     const itemHour = item.getAttribute("hour");
-    console.log(`item day : ${itemDay}`);
-    console.log(`item hour : ${itemHour}`);
+    const itemTasks = tasks[itemDay][itemHour];
+    if (itemTasks.taskName === null) {
+      setModalData({
+        taskName: null,
+        taskDescription: null,
+        day: itemDay,
+        hour: itemHour,
+        colour: "Red",
+        colourHex: colours["Red"],
+      });
+    }
     setModalOpen(true);
-    setModalData({ ...modalData, day: itemDay, hour: itemHour });
   };
 
   const handleModalCancel = () => {

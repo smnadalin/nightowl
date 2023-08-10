@@ -43,8 +43,8 @@ header {
   align-items: center;
 }
 
-.Item {
-  background-color: #252525;
+.Days > h1 {
+  font-size: 16px;
 }
 
 .Hours {
@@ -57,6 +57,10 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.Hour > p {
+  font-size: 18px;
 }
 
 .HoursHeader {
@@ -115,6 +119,10 @@ header > h1 {
   margin-bottom: 20px;
 }
 
+.Item:hover {
+  filter: brightness(1.4);
+}
+
 .InputContainer > input {
   margin-top: 10px;
   margin-bottom: 20px;
@@ -129,6 +137,15 @@ header > h1 {
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.LabelColour {
+  width: 90px;
+  text-align: left;
+}
+
+.InputColour {
+  margin-right: 10px;
 }
 
 .InputContainer > textarea {
@@ -201,4 +218,15 @@ button:hover {
 
 .InputContainer > label {
   font-size: 18px;
+}
+
+.ColourPreview {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.ColourContainer {
+  display: flex;
+  margin-top: 10px;
 }

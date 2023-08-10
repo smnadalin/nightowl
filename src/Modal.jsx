@@ -23,6 +23,15 @@ function Modal({ modalData, handleModalCancel, handleModalSave }) {
     "Saturday",
     "Sunday",
   ];
+  const colours = [
+    { colour: "Red", colourHex: "#7d294b" },
+    { colour: "Green", colourHex: "#3d7880" },
+    { colour: "Pink", colourHex: "#85547d" },
+    { colour: "Purple", colourHex: "#59297d" },
+    { colour: "Blue", colourHex: "#29417d" },
+    { colour: "Yellow", colourHex: "#7d7d29" },
+  ];
+
   return (
     <div className="Modal">
       <div className="ModalContent">
@@ -33,9 +42,26 @@ function Modal({ modalData, handleModalCancel, handleModalSave }) {
           <label htmlFor="TaskDescription">Task Description</label>
           <textarea id="TaskDescription" />
           <label>Colour</label>
-          <select>
-            <option>Red</option>
-          </select>
+
+          {colours.map((e) => {
+            return (
+              <div className="ColourContainer">
+                <label className="LabelColour">
+                  <input
+                    className="InputColour"
+                    type="radio"
+                    value={e.colour}
+                    checked={modalData.colour === e.colour}
+                  />
+                  {e.colour}
+                </label>
+                <span
+                  className="ColourPreview"
+                  style={{ backgroundColor: e.colourHex }}
+                ></span>
+              </div>
+            );
+          })}
         </div>
         <div className="ButtonContainer">
           <button className="CancelButton" onClick={handleModalCancel}>
