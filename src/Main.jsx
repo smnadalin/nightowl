@@ -1,13 +1,6 @@
 import Item from "./Item";
 
-function Main({
-  includeWeekend,
-  tasks,
-  updateTasks,
-  startHour,
-  endHour,
-  handleClickTask,
-}) {
+function Main({ includeWeekend, tasks, startHour, endHour, handleClickTask }) {
   const dropdownHours = [
     "5pm",
     "6pm",
@@ -25,13 +18,13 @@ function Main({
   ];
 
   const days = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
   ];
   return (
     <main
@@ -64,6 +57,8 @@ function Main({
               <p>{e}</p>
             </div>
           );
+        } else {
+          return null;
         }
       })}
       {tasks.map((day, dayIndex) =>
@@ -78,8 +73,11 @@ function Main({
                   startHour={startHour}
                   endHour={endHour}
                   handleClickTask={handleClickTask}
+                  task={hour}
                 />
               );
+            } else {
+              return null;
             }
           } else {
             return null;

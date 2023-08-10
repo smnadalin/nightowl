@@ -2,19 +2,11 @@ import "./App.css";
 import Menu from "./Menu";
 import Header from "./Header";
 import Main from "./Main";
+import Modal from "./Modal";
 import { useState } from "react";
 
 function App() {
   const [menuState, setMenuState] = useState(false);
-  const days = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
-  ];
 
   const [includeWeekend, setIncludeWeekend] = useState(true);
 
@@ -23,7 +15,11 @@ function App() {
     for (let i = 0; i < 7; i++) {
       const innerArray = Array(13);
       for (let j = 0; j < 13; j++) {
-        innerArray[j] = null;
+        innerArray[j] = {
+          taskName: null,
+          taskDescription: null,
+          colour: null,
+        };
       }
       outerArray[i] = innerArray;
     }
@@ -34,13 +30,28 @@ function App() {
   const [startHour, setStartHour] = useState(0);
   const [endHour, setEndHour] = useState(12);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({
+    taskName: "",
+    taskDescription: "",
+    colour: "",
+    day: "",
+    hour: "",
+  });
 
-  const updateTasks = (action, data) => {
+  const updateTasks = (action) => {
     const updatedTasks = [...tasks];
     if (action === "add") {
-      updatedTasks[data.day][data.hour] = data;
+      updatedTasks[modalData.day][modalData.hour] = {
+        taskName: modalData.taskName,
+        taskDescription: modalData.taskDescription,
+        colour: modalData.colour,
+      };
     } else if (action === "delete") {
-      updatedTasks[data.day][data.hour] = null;
+      updatedTasks[modalData.day][modalData.hour] = {
+        taskName: null,
+        taskDescription: null,
+        colour: null,
+      };
     }
     setTasks(updatedTasks);
   };
@@ -58,8 +69,24 @@ function App() {
     setEndHour(endHour);
   };
 
-  const handleClickTask = () => {
+  const handleClickTask = (event) => {
+    const item = event.target;
+    const itemDay = item.getAttribute("day");
+
+    const itemHour = item.getAttribute("hour");
+    console.log(`item day : ${itemDay}`);
+    console.log(`item hour : ${itemHour}`);
     setModalOpen(true);
+    setModalData({ ...modalData, day: itemDay, hour: itemHour });
+  };
+
+  const handleModalCancel = () => {
+    setModalOpen(false);
+  };
+
+  const handleModalSave = () => {
+    updateTasks("add");
+    setModalOpen(false);
   };
 
   return (
@@ -75,7 +102,6 @@ function App() {
       <Main
         includeWeekend={includeWeekend}
         tasks={tasks}
-        updateTasks={updateTasks}
         startHour={startHour}
         endHour={endHour}
         handleClickTask={handleClickTask}
@@ -90,12 +116,11 @@ function App() {
         endHour={endHour}
       />
       {modalOpen ? (
-        <div className="Modal">
-          <div className="ModalContent">
-            <span className="Close">&times;</span>
-            <form></form>
-          </div>
-        </div>
+        <Modal
+          modalData={modalData}
+          handleModalCancel={handleModalCancel}
+          handleModalSave={handleModalSave}
+        />
       ) : null}
     </div>
   );

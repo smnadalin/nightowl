@@ -70,11 +70,11 @@ function Menu({
               checked={includeWeekend}
               onChange={toggleWeekend}
             />
-            <label for="Weekend">Include weekend</label>
+            <label htmlFor="Weekend">Include weekend</label>
           </div>
           <h1>Time:</h1>
           <div>
-            <label for="StartTime">Start Time:</label>
+            <label htmlFor="StartTime">Start Time:</label>
             <select
               name="StartTime"
               id="StartTime"
@@ -87,7 +87,7 @@ function Menu({
             </select>
           </div>
           <div>
-            <label for="EndTime">End Time:</label>
+            <label htmlFor="EndTime">End Time:</label>
             <select
               name="EndTime"
               id="EndTime"
