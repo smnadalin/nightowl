@@ -152,7 +152,7 @@ function App() {
       className="App"
       style={
         menuState
-          ? { gridTemplateColumns: "1fr 400px" }
+          ? { gridTemplateColumns: "1fr 200px" }
           : { gridTemplateColumns: "1fr 100px" }
       }
     >

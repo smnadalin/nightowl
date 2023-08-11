@@ -42,7 +42,9 @@ function Modal({
       <div className="ModalContent">
         <h1>{`Task for ${hours[modalData.hour]} on ${days[modalData.day]}`}</h1>
         <div className="InputContainer">
-          <label htmlFor="TaskName">Task Name</label>
+          <label htmlFor="TaskName">
+            Task Name<span className="Required"> *</span>
+          </label>
           <input
             className={`InputTaskName ${
               !modalData.valid && modalData.touched ? "InputError" : ""

@@ -60,20 +60,22 @@ function Menu({
     <nav className="Menu">
       <MenuButton toggleMenu={toggleMenu} />
       {menuState ? (
-        <div>
+        <div className="MenuContainer">
           <h1>Settings:</h1>
           <div>
+            <label htmlFor="Weekend">Include Weekends</label>
             <input
+              className="InputWeekend"
+              style={{ marginLeft: "10px" }}
               type="checkbox"
               id="Weekend"
               name="Weekend"
               checked={includeWeekend}
               onChange={toggleWeekend}
             />
-            <label htmlFor="Weekend">Include weekend</label>
           </div>
           <h1>Time:</h1>
-          <div>
+          <div className="StartEndTimeContainer">
             <label htmlFor="StartTime">Start Time:</label>
             <select
               name="StartTime"
@@ -86,8 +88,8 @@ function Menu({
               ))}
             </select>
           </div>
-          <div>
-            <label htmlFor="EndTime">End Time:</label>
+          <div className="StartEndTimeContainer">
+            <label htmlFor="EndTime">End Time: </label>
             <select
               name="EndTime"
               id="EndTime"
