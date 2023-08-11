@@ -9,7 +9,14 @@ function App() {
   const [menuState, setMenuState] = useState(false);
   const [includeWeekend, setIncludeWeekend] = useState(true);
 
-  const colours = { Red: "#4a2735", Green: "#344a4d" };
+  const colours = [
+    { colour: "Red", colourHex: "#7d294b" },
+    { colour: "Green", colourHex: "#3d7880" },
+    { colour: "Pink", colourHex: "#85547d" },
+    { colour: "Purple", colourHex: "#59297d" },
+    { colour: "Blue", colourHex: "#29417d" },
+    { colour: "Yellow", colourHex: "#7d7d29" },
+  ];
 
   const GenerateTasksArray = () => {
     const outerArray = Array(7);
@@ -36,7 +43,6 @@ function App() {
     taskName: "",
     taskDescription: "",
     colour: "",
-    colourHex: "",
     day: "",
     hour: "",
   });
@@ -48,13 +54,14 @@ function App() {
         taskName: modalData.taskName,
         taskDescription: modalData.taskDescription,
         colour: modalData.colour,
-        colourHex: modalData.colourHex,
+        colourHex: getColourHex(modalData.colour),
       };
     } else if (action === "delete") {
       updatedTasks[modalData.day][modalData.hour] = {
         taskName: null,
         taskDescription: null,
         colour: null,
+        colourHex: null,
       };
     }
     setTasks(updatedTasks);
@@ -74,19 +81,27 @@ function App() {
   };
 
   const handleClickTask = (event) => {
-    const item = event.target;
+    console.log(event);
+    console.log("a");
+    const item = event.currentTarget;
+    console.log("b");
     const itemDay = item.getAttribute("day");
+    console.log(itemDay);
     const itemHour = item.getAttribute("hour");
+    console.log(itemHour);
     const itemTasks = tasks[itemDay][itemHour];
+    console.log(JSON.stringify(itemTasks));
     if (itemTasks.taskName === null) {
       setModalData({
-        taskName: null,
-        taskDescription: null,
+        taskName: "",
+        taskDescription: "",
         day: itemDay,
         hour: itemHour,
         colour: "Red",
         colourHex: colours["Red"],
       });
+    } else {
+      setModalData({ ...itemTasks, day: itemDay, hour: itemHour });
     }
     setModalOpen(true);
   };
@@ -95,9 +110,26 @@ function App() {
     setModalOpen(false);
   };
 
-  const handleModalSave = () => {
-    updateTasks("add");
+  const handleModalSave = (event) => {
+    updateTasks("add", event);
     setModalOpen(false);
+  };
+
+  const handleModalChange = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
+    if (inputName === "TaskName") {
+      setModalData({ ...modalData, taskName: inputValue });
+    } else if (inputName === "TaskDescription") {
+      setModalData({ ...modalData, taskDescription: inputValue });
+    } else {
+      setModalData({ ...modalData, colour: inputValue });
+    }
+  };
+
+  const getColourHex = (colourName) => {
+    const index = colours.findIndex((e) => e.colour === colourName);
+    return colours[index].colourHex;
   };
 
   return (
@@ -131,6 +163,7 @@ function App() {
           modalData={modalData}
           handleModalCancel={handleModalCancel}
           handleModalSave={handleModalSave}
+          handleModalChange={handleModalChange}
         />
       ) : null}
     </div>

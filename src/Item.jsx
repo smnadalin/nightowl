@@ -1,9 +1,9 @@
-function Item({ key, day, hour, startHour, handleClickTask, task }) {
+function Item({ keyName, day, hour, startHour, handleClickTask, task }) {
   return (
     <div
       className="Item"
       onClick={handleClickTask}
-      key={key}
+      key={keyName}
       day={day}
       hour={hour}
       style={{

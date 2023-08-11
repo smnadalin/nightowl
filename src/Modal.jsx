@@ -1,4 +1,9 @@
-function Modal({ modalData, handleModalCancel, handleModalSave }) {
+function Modal({
+  modalData,
+  handleModalCancel,
+  handleModalSave,
+  handleModalChange,
+}) {
   const hours = [
     "5pm",
     "6pm",
@@ -38,9 +43,13 @@ function Modal({ modalData, handleModalCancel, handleModalSave }) {
         <h1>{`Task for ${hours[modalData.hour]} on ${days[modalData.day]}`}</h1>
         <div className="InputContainer">
           <label htmlFor="TaskName">Task Name</label>
-          <input id="TaskName" />
+          <input id="TaskName" name="TaskName" onChange={handleModalChange} />
           <label htmlFor="TaskDescription">Task Description</label>
-          <textarea id="TaskDescription" />
+          <textarea
+            id="TaskDescription"
+            name="TaskDescription"
+            onChange={handleModalChange}
+          />
           <label>Colour</label>
 
           {colours.map((e) => {
@@ -48,10 +57,12 @@ function Modal({ modalData, handleModalCancel, handleModalSave }) {
               <div className="ColourContainer">
                 <label className="LabelColour">
                   <input
+                    name={e.colour}
                     className="InputColour"
                     type="radio"
                     value={e.colour}
                     checked={modalData.colour === e.colour}
+                    onChange={handleModalChange}
                   />
                   {e.colour}
                 </label>

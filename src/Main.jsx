@@ -67,7 +67,7 @@ function Main({ includeWeekend, tasks, startHour, endHour, handleClickTask }) {
             if (hourIndex >= startHour && hourIndex <= endHour) {
               return (
                 <Item
-                  key={`${dayIndex}-${hourIndex}`}
+                  keyName={`${dayIndex}-${hourIndex}`}
                   day={dayIndex}
                   hour={hourIndex}
                   startHour={startHour}
