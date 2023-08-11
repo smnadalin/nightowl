@@ -45,6 +45,8 @@ function App() {
     colour: "",
     day: "",
     hour: "",
+    valid: false,
+    touched: false,
   });
 
   const updateTasks = (action) => {
@@ -81,16 +83,11 @@ function App() {
   };
 
   const handleClickTask = (event) => {
-    console.log(event);
-    console.log("a");
     const item = event.currentTarget;
-    console.log("b");
     const itemDay = item.getAttribute("day");
-    console.log(itemDay);
     const itemHour = item.getAttribute("hour");
-    console.log(itemHour);
     const itemTasks = tasks[itemDay][itemHour];
-    console.log(JSON.stringify(itemTasks));
+    console.log(itemTasks);
     if (itemTasks.taskName === null) {
       setModalData({
         taskName: "",
@@ -99,9 +96,18 @@ function App() {
         hour: itemHour,
         colour: "Red",
         colourHex: colours["Red"],
+        valid: false,
+        touched: false,
       });
     } else {
-      setModalData({ ...itemTasks, day: itemDay, hour: itemHour });
+      console.log("I've been triggered");
+      setModalData({
+        ...itemTasks,
+        day: itemDay,
+        hour: itemHour,
+        valid: true,
+        touched: true,
+      });
     }
     setModalOpen(true);
   };
@@ -119,9 +125,18 @@ function App() {
     const inputName = event.target.name;
     const inputValue = event.target.value;
     if (inputName === "TaskName") {
-      setModalData({ ...modalData, taskName: inputValue });
+      const valid = inputValue !== "";
+      setModalData({
+        ...modalData,
+        taskName: inputValue,
+        touched: true,
+        valid: valid,
+      });
     } else if (inputName === "TaskDescription") {
-      setModalData({ ...modalData, taskDescription: inputValue });
+      setModalData({
+        ...modalData,
+        taskDescription: inputValue,
+      });
     } else {
       setModalData({ ...modalData, colour: inputValue });
     }

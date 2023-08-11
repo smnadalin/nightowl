@@ -97,8 +97,8 @@ header > h1 {
   background-color: #252525;
   margin: auto;
   margin-top: 100px;
-  width: 60%;
-  height: 60%;
+  width: 500px;
+  height: 80%;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -125,7 +125,6 @@ header > h1 {
 
 .InputContainer > input {
   margin-top: 10px;
-  margin-bottom: 20px;
   background-color: #333333;
   border: none;
   height: 36px;
@@ -133,10 +132,16 @@ header > h1 {
   color: white;
   border-radius: 2px;
   font-size: 18px;
-  padding-left: 8px;
+  padding-left: 4px;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
+  margin-bottom: 20px;
+}
+
+.InputContainer > .InputError {
+  border: 2px solid #dc323d;
+  margin-bottom: 4px;
 }
 
 .LabelColour {
@@ -149,32 +154,21 @@ header > h1 {
 }
 
 .InputContainer > textarea {
+  font-family: sans-serif;
   margin-top: 10px;
   margin-bottom: 20px;
   background-color: #333333;
   border: none;
-  height: 108px;
+  height: 180px;
   width: 100%;
   color: white;
   border-radius: 2px;
   font-size: 18px;
   resize: none;
-  padding-left: 8px;
+  padding-left: 4px;
   -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box; /* Firefox, other Gecko */
   box-sizing: border-box; /* Opera/IE 8+ */
-}
-
-.InputContainer > select {
-  padding-left: 8px;
-  margin-top: 10px;
-  background-color: #333333;
-  border: none;
-  height: 36px;
-  width: 100%;
-  color: white;
-  border-radius: 2px;
-  font-size: 18px;
 }
 
 button {
@@ -229,4 +223,10 @@ button:hover {
 .ColourContainer {
   display: flex;
   margin-top: 10px;
+}
+
+.TaskNameInvalid {
+  margin: 0;
+  margin-bottom: 10px;
+  color: #dc323d;
 }

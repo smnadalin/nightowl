@@ -43,12 +43,26 @@ function Modal({
         <h1>{`Task for ${hours[modalData.hour]} on ${days[modalData.day]}`}</h1>
         <div className="InputContainer">
           <label htmlFor="TaskName">Task Name</label>
-          <input id="TaskName" name="TaskName" onChange={handleModalChange} />
+          <input
+            className={`InputTaskName ${
+              !modalData.valid && modalData.touched ? "InputError" : ""
+            }`}
+            id="TaskName"
+            name="TaskName"
+            onChange={handleModalChange}
+            value={modalData.taskName}
+            placeholder="Midnight snack run"
+          />
+          {!modalData.valid && modalData.touched ? (
+            <p className="TaskNameInvalid">Task name cannot be blank</p>
+          ) : null}
           <label htmlFor="TaskDescription">Task Description</label>
           <textarea
             id="TaskDescription"
             name="TaskDescription"
             onChange={handleModalChange}
+            value={modalData.taskDescription}
+            placeholder="Sneak out to the kitchen for some leftovers"
           />
           <label>Colour</label>
 
