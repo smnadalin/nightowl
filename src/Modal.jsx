@@ -3,6 +3,7 @@ function Modal({
   handleModalCancel,
   handleModalSave,
   handleModalChange,
+  handleModalClear,
 }) {
   const hours = [
     "5pm",
@@ -67,7 +68,6 @@ function Modal({
             placeholder="Sneak out to the kitchen for some leftovers"
           />
           <label>Colour</label>
-
           {colours.map((e) => {
             return (
               <div className="ColourContainer">
@@ -89,6 +89,9 @@ function Modal({
               </div>
             );
           })}
+          <button className="DeleteButton" onClick={handleModalClear}>
+            Delete Task
+          </button>
         </div>
         <div className="ButtonContainer">
           <button className="CancelButton" onClick={handleModalCancel}>

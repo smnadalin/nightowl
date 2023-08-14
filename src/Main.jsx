@@ -28,10 +28,13 @@ function Main({ includeWeekend, tasks, startHour, endHour, handleClickTask }) {
   ];
   return (
     <main
-      className="Main"
+      className={`Main ${includeWeekend ? "MainWeekend" : "MainNoWeekend"}`}
       style={{
-        gridTemplateColumns: `100px repeat(${includeWeekend ? 7 : 5}, 1fr)`,
-        gridTemplateRows: `100px repeat(${endHour - startHour + 1}, 1fr)`,
+        gridTemplateRows: `40px repeat(${
+          endHour - startHour + 1
+        }, calc((100% - 48px - ${endHour - startHour + 1} * 4px) / ${
+          endHour - startHour + 1
+        }))`,
       }}
     >
       <div className="HoursHeader"></div>

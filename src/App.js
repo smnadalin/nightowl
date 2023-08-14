@@ -117,7 +117,16 @@ function App() {
   };
 
   const handleModalSave = (event) => {
-    updateTasks("add", event);
+    if (modalData.taskName === "") {
+      setModalData({ ...modalData, touched: true, valid: false });
+    } else {
+      updateTasks("add", event);
+      setModalOpen(false);
+    }
+  };
+
+  const handleModalClear = (event) => {
+    updateTasks("delete");
     setModalOpen(false);
   };
 
@@ -148,14 +157,7 @@ function App() {
   };
 
   return (
-    <div
-      className="App"
-      style={
-        menuState
-          ? { gridTemplateColumns: "1fr 200px" }
-          : { gridTemplateColumns: "1fr 100px" }
-      }
-    >
+    <div className={`App ${menuState ? "AppMenuOpen" : "AppMenuClosed"}`}>
       <Header />
       <Main
         includeWeekend={includeWeekend}
@@ -179,6 +181,7 @@ function App() {
           handleModalCancel={handleModalCancel}
           handleModalSave={handleModalSave}
           handleModalChange={handleModalChange}
+          handleModalClear={handleModalClear}
         />
       ) : null}
     </div>

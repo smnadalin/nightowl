@@ -60,7 +60,11 @@ function Menu({
     <nav className="Menu">
       <MenuButton toggleMenu={toggleMenu} />
       {menuState ? (
-        <div className="MenuContainer">
+        <div
+          className={`MenuContainer ${
+            menuState ? "MenuContainerOpen" : "MenuContainerClosed"
+          }`}
+        >
           <h1>Settings:</h1>
           <div>
             <label htmlFor="Weekend">Include Weekends</label>
