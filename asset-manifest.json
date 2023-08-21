@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/nightowl/static/css/main.c80fab26.css",
+    "main.js": "/nightowl/static/js/main.9b944948.js",
+    "static/js/787.cbbece0c.chunk.js": "/nightowl/static/js/787.cbbece0c.chunk.js",
+    "index.html": "/nightowl/index.html",
+    "static/media/menuIcon.svg": "/nightowl/static/media/menuIcon.cf020980e7ed2413c6f691a9f737c500.svg",
+    "main.c80fab26.css.map": "/nightowl/static/css/main.c80fab26.css.map",
+    "main.9b944948.js.map": "/nightowl/static/js/main.9b944948.js.map",
+    "787.cbbece0c.chunk.js.map": "/nightowl/static/js/787.cbbece0c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c80fab26.css",
+    "static/js/main.9b944948.js"
+  ]
+}
